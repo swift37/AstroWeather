@@ -1,6 +1,8 @@
 ﻿using MetaWeather;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Polly;
+using Polly.Extensions.Http;
 
 class Program
 {
@@ -17,8 +19,19 @@ class Program
     private static void ConfigureServices(HostBuilderContext host, IServiceCollection services) => services
         .AddHttpClient<MetaWeatherClient>(client => 
         client.BaseAddress = new Uri(host.Configuration["BaseUri"] 
-            ?? throw new InvalidDataException("Base URI not exist.")));
+            ?? throw new InvalidDataException("Base URI not exist.")))
+        .SetHandlerLifetime(TimeSpan.FromMinutes(5))
+        .AddPolicyHandler(GetRetryPolicy());
 
+    public static IAsyncPolicy<HttpResponseMessage> GetRetryPolicy()
+    {
+        var jitter = new Random();
+        return HttpPolicyExtensions
+            .HandleTransientHttpError()
+            .WaitAndRetryAsync(10, retryAttempt => 
+                TimeSpan.FromSeconds(Math.Pow(2, retryAttempt)) + 
+                TimeSpan.FromMilliseconds(jitter.Next(0, 1000)));
+    }
        
     public static async Task Main(string[] args)
     {
@@ -29,7 +42,7 @@ class Program
 
         var geoData = await client.GetGeoData("Warsaw");
         var airPollutionData = await client.GetAirPollutionData(geoData[0]);
-        var weatherData = await client.GetWeatherData(geoData[0]);
+        var weatherData = await client.GetCurrentWeatherData(geoData[0]);
 
         await host.StopAsync();
     }
