@@ -24,5 +24,10 @@ namespace MetaWeather
                 .GetFromJsonAsync<AirPollutionData>($"/data/2.5/air_pollution?lat={latitude}&lon={longitude}&appid=d2c347f9dafa3c3b80573318acdeab99")
                 .ConfigureAwait(false);
         }
+
+        public async Task<AirPollutionData?> GetAirPollutionData(GeoData geoData, CancellationToken cancellation = default)
+        {
+            return await GetAirPollutionData(geoData.Latitude, geoData.Longitude, cancellation);
+        }
     }
 }

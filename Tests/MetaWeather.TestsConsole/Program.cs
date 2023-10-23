@@ -4,7 +4,7 @@ using Microsoft.Extensions.Hosting;
 
 class Program
 {
-    private static IHost _Hosting;
+    private static IHost? _Hosting;
 
     public static IHost Hosting => _Hosting ??= CreateHostBuilder(Environment.GetCommandLineArgs()).Build();
 
@@ -28,7 +28,7 @@ class Program
         var client = Services.GetRequiredService<MetaWeatherClient>();
 
         var geoData = await client.GetGeoData("Warsaw");
-        var airPollutionData = await client.GetAirPollutionData(52.2319581, 21.0067249);
+        var airPollutionData = await client.GetAirPollutionData(geoData[0]);
 
         await host.StopAsync();
     }
