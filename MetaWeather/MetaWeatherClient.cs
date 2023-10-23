@@ -34,5 +34,8 @@ namespace MetaWeather
                 .GetFromJsonAsync<WeatherData>($"/data/2.5/weather?lat={latitude}&lon={longitude}&appid=d2c347f9dafa3c3b80573318acdeab99")
                 .ConfigureAwait(false);
         }
+
+        public async Task<WeatherData?> GetCurrentWeatherData(GeoData geoData, CancellationToken cancellation = default) =>
+            await GetCurrentWeatherData(geoData.Latitude, geoData.Longitude, cancellation);
     }
 }
