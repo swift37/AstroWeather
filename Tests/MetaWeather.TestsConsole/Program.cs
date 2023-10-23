@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using MetaWeather;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
 class Program
@@ -13,18 +14,19 @@ class Program
         .CreateDefaultBuilder()
         .ConfigureServices(ConfigureServices);
 
-    private static void ConfigureServices(HostBuilderContext host, IServiceCollection services)
-    {
-        
-    }
+    private static void ConfigureServices(HostBuilderContext host, IServiceCollection services) => services
+        .AddHttpClient<MetaWeatherClient>(client => 
+        client.BaseAddress = new Uri(host.Configuration["BaseUri"] 
+            ?? throw new InvalidDataException("Base URI not exist.")));
+
        
     public static async Task Main(string[] args)
     {
         using var host = Hosting;
         await host.StartAsync();
 
-        Console.WriteLine("Completed!");
-        Console.ReadLine();
+        var service = Services.GetRequiredService<MetaWeatherClient>();
+        var coords = await service.GetCoordsByName("Warsaw");
 
         await host.StopAsync();
     }
