@@ -14,7 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\MetaWeather\MetaWeather.csproj" />
+    <ProjectReference Include="..\..\AstroWeather\AstroWeather.csproj" />
   </ItemGroup>
 
   <ItemGroup>
