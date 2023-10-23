@@ -29,6 +29,7 @@ class Program
 
         var geoData = await client.GetGeoData("Warsaw");
         var airPollutionData = await client.GetAirPollutionData(geoData[0]);
+        var weatherData = await client.GetWeatherData(geoData[0]);
 
         await host.StopAsync();
     }

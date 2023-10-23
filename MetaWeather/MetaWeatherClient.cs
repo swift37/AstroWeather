@@ -25,9 +25,14 @@ namespace MetaWeather
                 .ConfigureAwait(false);
         }
 
-        public async Task<AirPollutionData?> GetAirPollutionData(GeoData geoData, CancellationToken cancellation = default)
+        public async Task<AirPollutionData?> GetAirPollutionData(GeoData geoData, CancellationToken cancellation = default) =>
+            await GetAirPollutionData(geoData.Latitude, geoData.Longitude, cancellation);
+
+        public async Task<WeatherData?> GetCurrentWeatherData(double latitude, double longitude, CancellationToken cancellation = default)
         {
-            return await GetAirPollutionData(geoData.Latitude, geoData.Longitude, cancellation);
+            return await _client
+                .GetFromJsonAsync<WeatherData>($"/data/2.5/weather?lat={latitude}&lon={longitude}&appid=d2c347f9dafa3c3b80573318acdeab99")
+                .ConfigureAwait(false);
         }
     }
 }
