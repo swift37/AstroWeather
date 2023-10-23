@@ -25,8 +25,10 @@ class Program
         using var host = Hosting;
         await host.StartAsync();
 
-        var service = Services.GetRequiredService<MetaWeatherClient>();
-        var coords = await service.GetCoordsByName("Warsaw");
+        var client = Services.GetRequiredService<MetaWeatherClient>();
+
+        var geoData = await client.GetGeoData("Warsaw");
+        var airPollutionData = await client.GetAirPollutionData(52.2319581, 21.0067249);
 
         await host.StopAsync();
     }
