@@ -4,7 +4,24 @@
     <TargetFramework>net7.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <SignAssembly>False</SignAssembly>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <Version>1.0.0.1</Version>
+    <PackageReleaseNotes>Project launch.</PackageReleaseNotes>
+  </PropertyGroup>
+  
+  <PropertyGroup>
+    <SignAssembly>True</SignAssembly>
+    <AssemblyOriginatorKeyFile>AstroWeather.snk</AssemblyOriginatorKeyFile>
+    <Title>AstroWeather</Title>
+    <Authors>swiftx37@gmail.com</Authors>
+    <Description>Client for AstroWeather API</Description>
+    <PackageProjectUrl>https://github.com/swift37/AstroWeather</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/swift37/AstroWeather</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>Weather, Meteorology. WetherAPI, AstroWeather</PackageTags>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
   </PropertyGroup>
 
   <ItemGroup>
