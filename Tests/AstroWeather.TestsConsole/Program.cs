@@ -17,7 +17,7 @@ class Program
         .ConfigureServices(ConfigureServices);
 
     private static void ConfigureServices(HostBuilderContext host, IServiceCollection services) => services
-        .AddHttpClient<MetaWeatherClient>(client => 
+        .AddHttpClient<AstroWeatherClient>(client => 
         client.BaseAddress = new Uri(host.Configuration["BaseUri"] 
             ?? throw new InvalidDataException("Base URI not exist.")))
         .SetHandlerLifetime(TimeSpan.FromMinutes(5))
@@ -38,9 +38,11 @@ class Program
         using var host = Hosting;
         await host.StartAsync();
 
-        var client = Services.GetRequiredService<MetaWeatherClient>();
+        var client = Services.GetRequiredService<AstroWeatherClient>();
 
         var geoData = await client.GetGeoData("Warsaw");
+        if (geoData is null) throw new NullReferenceException(nameof(geoData));
+
         var airPollutionData = await client.GetAirPollutionData(geoData[0]);
         var weatherData = await client.GetCurrentWeatherData(geoData[0]);
 

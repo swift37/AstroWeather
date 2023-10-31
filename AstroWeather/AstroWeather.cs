@@ -3,18 +3,18 @@ using System.Net.Http.Json;
 
 namespace MetaWeather
 {
-    public class MetaWeatherClient
+    public class AstroWeatherClient
     {
         private readonly HttpClient _client;
 
-        public MetaWeatherClient(HttpClient client) => _client = client;
+        public AstroWeatherClient(HttpClient client) => _client = client;
 
-        public async Task<GeoData[]?> GetGeoData(string? name, int limit = 1, CancellationToken cancellation = default)
+        public async Task<GeoData[]?> GetGeoData(string? cityName, int limit = 1, CancellationToken cancellation = default)
         {
-            if (name is null) throw new ArgumentNullException("A city name is required.");
+            if (cityName is null) throw new ArgumentNullException("A city name is required.");
 
             return await _client
-                .GetFromJsonAsync<GeoData[]>($"/geo/1.0/direct?q={name}&limit={limit}&appid=d2c347f9dafa3c3b80573318acdeab99")
+                .GetFromJsonAsync<GeoData[]>($"/geo/1.0/direct?q={cityName}&limit={limit}&appid=d2c347f9dafa3c3b80573318acdeab99")
                 .ConfigureAwait(false);
         }
 
@@ -25,8 +25,12 @@ namespace MetaWeather
                 .ConfigureAwait(false);
         }
 
-        public async Task<AirPollutionData?> GetAirPollutionData(GeoData geoData, CancellationToken cancellation = default) =>
-            await GetAirPollutionData(geoData.Latitude, geoData.Longitude, cancellation);
+        public async Task<AirPollutionData?> GetAirPollutionData(GeoData? geoData, CancellationToken cancellation = default)
+        {
+            if (geoData is null) throw new ArgumentNullException("Geo data is required.");
+
+            return await GetAirPollutionData(geoData.Latitude, geoData.Longitude, cancellation);
+        }
 
         public async Task<WeatherData?> GetCurrentWeatherData(double latitude, double longitude, CancellationToken cancellation = default)
         {
@@ -35,7 +39,12 @@ namespace MetaWeather
                 .ConfigureAwait(false);
         }
 
-        public async Task<WeatherData?> GetCurrentWeatherData(GeoData geoData, CancellationToken cancellation = default) =>
-            await GetCurrentWeatherData(geoData.Latitude, geoData.Longitude, cancellation);
+        public async Task<WeatherData?> GetCurrentWeatherData(GeoData? geoData, CancellationToken cancellation = default)
+        {
+            if (geoData is null) throw new ArgumentNullException("Geo data is required.");
+
+            return await GetCurrentWeatherData(geoData.Latitude, geoData.Longitude, cancellation);
+        }
+        
     }
 }

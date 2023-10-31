@@ -1,14 +1,15 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net7.0</TargetFramework>
+    <TargetFrameworks>net6.0;net7.0;net462;netstandard2.0;netstandard2.1;</TargetFrameworks>
+    <LangVersion>11.0</LangVersion>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <PropertyGroup>
-    <Version>1.0.0.1</Version>
-    <PackageReleaseNotes>Project launch.</PackageReleaseNotes>
+    <Version>1.0.2</Version>
+    <PackageReleaseNotes>Some fixes and impovements. Moving the project to support multiple versions of .NET.</PackageReleaseNotes>
   </PropertyGroup>
   
   <PropertyGroup>
@@ -16,7 +17,7 @@
     <AssemblyOriginatorKeyFile>AstroWeather.snk</AssemblyOriginatorKeyFile>
     <Title>AstroWeather</Title>
     <Authors>swiftx37@gmail.com</Authors>
-    <Description>Client for AstroWeather API</Description>
+    <Description>Client for Weather Forecast API.</Description>
     <PackageProjectUrl>https://github.com/swift37/AstroWeather</PackageProjectUrl>
     <RepositoryUrl>https://github.com/swift37/AstroWeather</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
