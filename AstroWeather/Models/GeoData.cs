@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace MetaWeather.Models
+namespace AstroWeather.Models
 {
     public class GeoData : Coords
     {

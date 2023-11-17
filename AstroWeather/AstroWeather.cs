@@ -1,7 +1,7 @@
-﻿using MetaWeather.Models;
+﻿using AstroWeather.Models;
 using System.Net.Http.Json;
 
-namespace MetaWeather
+namespace AstroWeather
 {
     public class AstroWeatherClient
     {

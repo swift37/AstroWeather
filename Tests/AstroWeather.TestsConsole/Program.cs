@@ -1,4 +1,4 @@
-﻿using MetaWeather;
+﻿using AstroWeather;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Polly;

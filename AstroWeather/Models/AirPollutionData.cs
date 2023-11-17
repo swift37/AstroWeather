@@ -1,4 +1,4 @@
-﻿using MetaWeather.Models;
+﻿using AstroWeather.Models;
 using System.Text.Json.Serialization;
 
 public class AirPollutionData
